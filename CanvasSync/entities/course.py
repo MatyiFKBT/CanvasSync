@@ -48,13 +48,19 @@ class Course(CanvasEntity):
         course_id = self.course_info[u"id"]
 
         course_name = helpers.get_corrected_name(self.course_info[u"course_code"].split(";")[-1])
-
+        self.to_be_synced = True if "2020_21_2" in course_name else False
+        
+        ### Rename
+        # 2020/21/1 B5SNWQ-IP-18AB1G - Adatbázisok I. Gy 
+        # to
+        # Adatbázisok I. Gy
+        course_name = course_name.split(' - ')[1]
+        
         if settings.use_nicknames:
             course_name = self.course_info[u"name"]
 
         course_path = parent.get_path() + course_name
 
-        self.to_be_synced = True if "2020_21_2" in course_name else False
 
         # Initialize base class
         CanvasEntity.__init__(self,
