@@ -54,7 +54,7 @@ class Course(CanvasEntity):
 
         course_path = parent.get_path() + course_name
 
-        self.to_be_synced = True if course_name in parent.settings.courses_to_sync else False
+        self.to_be_synced = True if "2020_21_2" in course_name else False
 
         # Initialize base class
         CanvasEntity.__init__(self,

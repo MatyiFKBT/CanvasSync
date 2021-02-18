@@ -1,4 +1,4 @@
 requests
 pycryptodome
-py-bcrypt
+bcrypt
 six

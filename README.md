@@ -1,6 +1,15 @@
 # CanvasSync
 Synchronise modules, assignments and files located on a Canvas by Instructure web server to your local computer.
 
+To use this fork:
+
+```
+git clone https://github.com/MatyiFKBT/CanvasSync
+cd CanvasSync
+python setup.py install
+canvas
+```
+
 Description
 -----------
 CanvasSync helps students automatically synchronize modules, assignments & files located on their institutions Canvas web server

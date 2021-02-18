@@ -126,6 +126,7 @@ def validate_domain(domain):
     try:
         response = requests.get(domain + u"/api/v1/courses", timeout=5).text
         if (response == u"{\"status\":\"unauthenticated\",\"errors\":[{\"message\":\"user authorisation required\"}]}" or
+            response == u"{\"status\":\"nem hitelesített\",\"errors\":[{\"message\":\"felhasználó hitelesítése szükséges\"}]}" or
             response == u"{\"status\":\"unauthenticated\",\"errors\":[{\"message\":\"user authorization required\"}]}"):
             # If this response, the server exists and understands
             # the API call but complains that the call was

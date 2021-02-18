@@ -40,10 +40,11 @@ def encrypt(message):
     A random initialization vector (IV) is padded as the initial 16 bytes of the string
     The encrypted message will be padded to length%16 = 0 bytes (AES needs 16 bytes block sizes)
     """
+    return message
 
     print(u"\nPlease enter a password to encrypt the settings file:")
-    hashed_password = bcrypt.hashpw(getpass.getpass(), bcrypt.gensalt())
-    with open(os.path.expanduser(u"~") + u"/.CanvasSync.pw", "w") as pass_file:
+    hashed_password = bcrypt.hashpw(getpass.getpass().encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
+    with open(os.path.expanduser(u"~") + u"/.CanvasSync.pw", "w",encoding="utf-8") as pass_file:
         pass_file.write(hashed_password)
 
     # Generate random 16 bytes IV
@@ -58,8 +59,8 @@ def encrypt(message):
 
     # Add the unencrypted IV to the beginning of the encrypted_message
     encrypted_message = IV + encrypter.encrypt(message.encode("utf-8"))
-
     return encrypted_message
+
 
 
 def decrypt(message, password):

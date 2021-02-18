@@ -99,9 +99,9 @@ class Settings(object):
             self.set_settings()
             return True
 
-        with open(self.settings_path, u"rb") as settings_f:
+        with open(self.settings_path, u"r") as settings_f:
             encrypted_message = settings_f.read()
-        messages = decrypt(encrypted_message, password)
+        messages = encrypted_message
         if not messages:
             # Password file did not exist, set new settings
             print(ANSI.format(u"\n[ERROR] The hashed password file does not"
@@ -111,7 +111,7 @@ class Settings(object):
             self.set_settings()
             return self.load_settings("")
         else:
-            messages = messages.decode(u"utf-8").split(u"\n")
+            messages = messages.split(u"\n")
 
         # Set sync path, domain and auth token
         self.sync_path, self.domain, self.token = messages[:3]
@@ -198,7 +198,7 @@ class Settings(object):
         print(ANSI.format(u"\n\nThese settings will be saved", u"announcer"))
 
         # Write password encrypted settings to hidden file in home directory
-        with open(self.settings_path, u"wb") as out_file:
+        with open(self.settings_path, u"w",encoding="utf-8") as out_file:
             settings = self.sync_path + u"\n" + self.domain + u"\n" + self.token + u"\n"
 
             for course in self.courses_to_sync:
@@ -211,7 +211,7 @@ class Settings(object):
             settings += u"Linked files$" + str(self.download_linked) + u"\n"
             settings += u"Avoid duplicates$" + str(self.avoid_duplicates) + u"\n"
 
-            out_file.write(encrypt(settings))
+            out_file.write(settings)
 
     def print_advanced_settings(self, clear=True):
         """
